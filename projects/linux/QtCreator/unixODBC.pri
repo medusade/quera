@@ -13,44 +13,23 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: odbc.pri
+#   File: unixODBC.pri
 #
 # Author: $author$
-#   Date: 3/12/2017
+#   Date: 3/13/2017
 ########################################################################
 
-odbc_TARGET = quera-odbc
+########################################################################
+# unixODBC
+unixODBC_INCLUDEPATH += \
+
+unixODBC_DEFINES += \
 
 ########################################################################
-odbc_INCLUDEPATH += \
-$${quera_INCLUDEPATH} \
-$${crono_INCLUDEPATH} \
-$${patrona_INCLUDEPATH} \
-$${nadir_INCLUDEPATH} \
+unixODBC_HEADERS += \
 
-odbc_DEFINES += \
-$${framework_DEFINES} \
-$${quera_DEFINES} \
+unixODBC_SOURCES += \
 
 ########################################################################
-odbc_HEADERS += \
-$${QUERA_SRC}/quera/db/odbc/Query.hpp \
-$${QUERA_SRC}/quera/db/odbc/Connection.hpp \
-$${QUERA_SRC}/quera/db/odbc/Environment.hpp \
-$${QUERA_SRC}/quera/db/odbc/Object.hpp \
-$${QUERA_SRC}/quera/db/odbc/Main.hpp \
-$${QUERA_SRC}/quera/db/odbc/ODBC.hpp \
-$${QUERA_SRC}/quera/base/Base.hpp \
+unixODBC_LIBS += \
 
-odbc_SOURCES += \
-$${QUERA_SRC}/quera/db/odbc/Query.cpp \
-$${QUERA_SRC}/quera/db/odbc/Connection.cpp \
-$${QUERA_SRC}/quera/db/odbc/Environment.cpp \
-$${QUERA_SRC}/quera/db/odbc/Object.cpp \
-$${QUERA_SRC}/quera/db/odbc/Main.cpp \
-$${QUERA_SRC}/quera/db/odbc/ODBC.cpp \
-$${QUERA_SRC}/quera/base/Base.cpp \
-
-########################################################################
-odbc_LIBS += \
-$${nadir_LIBS} \

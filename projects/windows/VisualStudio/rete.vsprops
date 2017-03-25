@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2016 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: rete.vsprops                                                   -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 12/6/2016                                                      -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="rete">
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="RETE_GROUP"
+      Value=""
+    />
+  <UserMacro
+      Name="RETE_NAME"
+      Value="rete"
+    />
+  <UserMacro
+      Name="RETE_VERSION"
+      Value=""
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+        Name="RETE_DIR"
+        Value="$(RETE_GROUP)$(RETE_NAME)$(RETE_VERSION)"
+    />
+  <UserMacro
+      Name="RETE_SOURCE_DIR"
+      Value="$(SOURCE_ROOT_DIR)/$(RETE_DIR)/src"
+    />
+  <UserMacro
+      Name="RETE_BUILD_DIR"
+      Value="$(SOURCE_BUILD_DIR)/$(RETE_DIR)/build"
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="RETE_BUILD"
+      Value="$(RETE_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+  <UserMacro
+      Name="RETE_OBJ"
+      Value="$(RETE_BUILD)/obj/$(ProjectName)"
+    />
+  <UserMacro
+      Name="RETE_LIB"
+      Value="$(RETE_BUILD)/lib"
+    />
+  <UserMacro
+      Name="RETE_BIN"
+      Value="$(RETE_BUILD)/bin"
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="RETE_DEFINES"
+      Value="$(CRONO_DEFINES)"
+    />
+  <UserMacro
+      Name="RETE_INCLUDE_DIRS"
+      Value="$(RETE_SOURCE_DIR);$(CRONO_INCLUDE_DIRS)"
+    />
+  <UserMacro
+      Name="RETE_LIB_DIRS"
+      Value="$(RETE_LIB);$(CRONO_LIB_DIRS)"
+    />
+  <UserMacro
+      Name="RETE_LIBS"
+      Value="librete.lib $(CRONO_LIBS)"
+    />
+
+  <!--===============================================-->
+
+</VisualStudioPropertySheet>

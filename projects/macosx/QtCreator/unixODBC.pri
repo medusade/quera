@@ -34,3 +34,4 @@ unixODBC_SOURCES += \
 unixODBC_LIBS += \
 -L${HOME}/build/libiconv \
 -liconv \
+

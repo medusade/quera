@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2016 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: patrona.vsprops                                                -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 9/29/2016                                                      -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="patrona">
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="PATRONA_GROUP"
+      Value=""
+    />
+  <UserMacro
+      Name="PATRONA_NAME"
+      Value="patrona"
+    />
+  <UserMacro
+      Name="PATRONA_VERSION"
+      Value=""
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="PATRONA_DIR"
+      Value="$(PATRONA_GROUP)$(PATRONA_NAME)$(PATRONA_VERSION)"
+    />
+  <UserMacro
+      Name="PATRONA_SOURCE_DIR"
+      Value="$(SOURCE_ROOT_DIR)/$(PATRONA_DIR)/src"
+    />
+  <UserMacro
+      Name="PATRONA_BUILD_DIR"
+      Value="$(SOURCE_BUILD_DIR)/$(PATRONA_DIR)/build"
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="PATRONA_BUILD"
+      Value="$(PATRONA_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+  <UserMacro
+      Name="PATRONA_OBJ"
+      Value="$(PATRONA_BUILD)/obj/$(ProjectName)"
+    />
+  <UserMacro
+      Name="PATRONA_LIB"
+      Value="$(PATRONA_BUILD)/lib"
+    />
+  <UserMacro
+      Name="PATRONA_BIN"
+      Value="$(PATRONA_BUILD)/bin"
+    />
+
+  <!--===============================================-->
+
+  <UserMacro
+      Name="PATRONA_DEFINES"
+      Value=""
+    />
+  <UserMacro
+      Name="PATRONA_INCLUDE_DIRS"
+      Value="$(PATRONA_SOURCE_DIR)"
+    />
+  <UserMacro
+      Name="PATRONA_LIB_DIRS"
+      Value="$(PATRONA_LIB)"
+    />
+  <UserMacro
+      Name="PATRONA_LIBS"
+      Value="libpatrona.lib"
+    />
+
+  <!--===============================================-->
+
+</VisualStudioPropertySheet>
+
+        
+

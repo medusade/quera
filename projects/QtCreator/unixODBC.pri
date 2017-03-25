@@ -38,5 +38,4 @@ unixODBC_LIBS += \
 -lodbcinst \
 
 unixODBC_LIBS += \
--L${HOME}/build/libiconv \
--liconv \
+

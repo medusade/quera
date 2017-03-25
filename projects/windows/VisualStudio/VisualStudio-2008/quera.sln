@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{570914F0-A37D-46A5-8533-03FB462C3E79}"
+	ProjectSection(SolutionItems) = preProject
+		..\crono.vsprops = ..\crono.vsprops
+		..\nadir.vsprops = ..\nadir.vsprops
+		..\patrona.vsprops = ..\patrona.vsprops
+		..\quera.vsprops = ..\quera.vsprops
+		vcversion.vsprops = vcversion.vsprops
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{FBA999E3-ECEB-4CE5-95D5-C0F152366EDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{28AE4E22-7D1B-4CCC-8519-4EA146FCEB57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "odbc", "odbc\odbc.vcproj", "{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40}.Debug|Win32.Build.0 = Debug|Win32
+		{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40}.Release|Win32.ActiveCfg = Release|Win32
+		{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D4645D2-F2DC-49F2-B7AF-B506EC6A3D40} = {FBA999E3-ECEB-4CE5-95D5-C0F152366EDE}
+	EndGlobalSection
+EndGlobal
