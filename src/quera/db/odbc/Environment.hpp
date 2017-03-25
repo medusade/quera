@@ -83,8 +83,8 @@ public:
         return 0;
     }
     virtual bool DestroyDetached(SQLHENV henv) const {
-        SQLRETURN retcode = SQL_SUCCESS;
         if ((henv)) {
+            SQLRETURN retcode = SQL_SUCCESS;
             /*/
             SQLRETURN SQLFreeEnv
             (SQLHENV henv); // Environment handle to free
@@ -101,6 +101,22 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+	virtual bool Error(CharString& msg, SQLHDBC hdbc, SQLHSTMT hstmt) const {
+		SQLCHAR *szErrorMsg = 0;
+		SQLSMALLINT cbErrorMsgMax = 0;
+		SQLSMALLINT cbErrorMsg = 0;
+		SQLINTEGER fNativeError = 0;
+		SQLCHAR szSqlState[10];
+		SQLCHARArray errorMsg;
+
+		szErrorMsg = errorMsg.elements();
+		cbErrorMsgMax = errorMsg.size()-1;
+		if ((Error(hdbc, hstmt, szSqlState, &fNativeError, szErrorMsg, cbErrorMsgMax, &cbErrorMsg))) {
+			msg.Assign(szErrorMsg, cbErrorMsg);
+			return true;
+		}
+		return false;
+	}
     virtual bool Error
     (SQLHDBC hdbc, SQLHSTMT hstmt,
      SQLCHAR *szSqlState, SQLINTEGER *pfNativeError,

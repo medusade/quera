@@ -29,6 +29,7 @@
 
 #include <sql.h>
 #include <sqlext.h>
+#include <odbcinst.h>
 
 #if !defined(WINDOWS)
 #define BOOL QUERA_BOOL
@@ -53,9 +54,115 @@ namespace db {
 namespace odbc {
 
 typedef nadir::charst<SQLCHAR> SQLCHARS;
-typedef nadir::arrayt<SQLCHAR> SQLCHARArray;
 
-} // namespace odbc 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+template <typename TChar, class TExtends = nadir::arrayt<TChar> >
+class _EXPORT_CLASS CharArrayT: public TExtends {
+public:
+    typedef TExtends Extends;
+    typedef TChar Char;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    CharArrayT(const char* chars) {
+        this->Append(chars);
+    }
+    CharArrayT(const char* chars, size_t length) {
+        this->Append(chars, length);
+    }
+    CharArrayT(const CharArrayT& copy): Extends(copy) {
+    }
+    CharArrayT() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharArrayT& Assign(const char* chars) {
+        this->clear();
+        this->Append(chars);
+        return *this;
+    }
+    virtual CharArrayT& Assign(const char* chars, size_t length) {
+        this->clear();
+        this->Append(chars, length);
+        return *this;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharArrayT& Append(const char* chars) {
+        this->Append(chars, chars_t::count(chars));
+        return *this;
+    }
+    virtual CharArrayT& Append(const char* chars, size_t length) {
+        if ((chars) && (length)) {
+            for (Char c = 0; length; --length, ++chars) {
+                c = ((Char)(*chars));
+                this->append(&c, 1);
+            }
+        }
+        return *this;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+
+typedef CharArrayT<SQLCHAR> SQLCHARArray;
+typedef CharArrayT<UCHAR> UCHARArray;
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+template <typename TChar, class TExtends = nadir::char_stringt<TChar> >
+class _EXPORT_CLASS CharStringT: public TExtends {
+public:
+    typedef TExtends Extends;
+    typedef TChar Char;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    CharStringT(const SQLCHAR* chars) {
+        this->Append(chars);
+    }
+    CharStringT(const SQLCHAR* chars, size_t length) {
+        this->Append(chars, length);
+    }
+    CharStringT(const CharStringT& copy): Extends(copy) {
+    }
+    CharStringT() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharStringT& Assign(const SQLCHAR* chars) {
+        this->clear();
+        this->Append(chars);
+        return *this;
+    }
+    virtual CharStringT& Assign(const SQLCHAR* chars, size_t length) {
+        this->clear();
+        this->Append(chars, length);
+        return *this;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual CharStringT& Append(const SQLCHAR* chars) {
+        this->Append(chars, SQLCHARS::count(chars));
+        return *this;
+    }
+    virtual CharStringT& Append(const SQLCHAR* chars, size_t length) {
+        if ((chars) && (length)) {
+            for (Char c = 0; length; --length, ++chars) {
+                c = ((Char)(*chars));
+                this->append(&c, 1);
+            }
+        }
+        return *this;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+
+typedef CharStringT<char> CharString;
+typedef CharStringT<tchar_t> TCharString;
+typedef CharStringT<wchar_t> WCharString;
+
+} // namespace odbc
 } // namespace db 
 } // namespace quera 
 

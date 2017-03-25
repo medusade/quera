@@ -113,29 +113,115 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Connect(const char *szDSN) {
+	virtual bool Error(CharString& msg) const {
+		SQLSMALLINT recNumber = 1;
+		SQLCHAR *szErrorMsg = 0;
+		SQLSMALLINT cbErrorMsgMax = 0;
+		SQLSMALLINT cbErrorMsg = 0;
+		SQLINTEGER fNativeError = 0;
+		SQLCHAR szSqlState[10];
+		SQLCHARArray errorMsg;
+
+		szErrorMsg = errorMsg.elements();
+		cbErrorMsgMax = errorMsg.size()-1;
+		if ((Error(recNumber, szSqlState, &fNativeError, szErrorMsg, cbErrorMsgMax, &cbErrorMsg))) {
+			msg.Assign(szErrorMsg, cbErrorMsg);
+			return true;
+		}
+		return false;
+	}
+    virtual bool Error
+    (SQLSMALLINT recNumber, SQLCHAR *szSqlState, SQLINTEGER *pfNativeError,
+     SQLCHAR *szErrorMsg, SQLSMALLINT cbErrorMsgMax, SQLSMALLINT *pcbErrorMsg) const {
+        SQLHENV hdbc = 0;
+        if ((hdbc = this->AttachedTo())) {
+            SQLRETURN retcode = SQL_SUCCESS;
+            /*/
+			SQLRETURN SQLGetDiagRec(  
+				 SQLSMALLINT     HandleType,  
+				 SQLHANDLE       Handle,  
+				 SQLSMALLINT     RecNumber,  
+				 SQLCHAR *       SQLState,  
+				 SQLINTEGER *    NativeErrorPtr,  
+				 SQLCHAR *       MessageText,  
+				 SQLSMALLINT     BufferLength,  
+				 SQLSMALLINT *   TextLengthPtr);              
+		    /*/
+            CRONO_LOG_DEBUG("SQLGetDiagRec(SQL_HANDLE_DBC, hdbc, recNumber, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg)...");
+            if ((retcode = SQLGetDiagRec
+                 (SQL_HANDLE_DBC, hdbc, recNumber, szSqlState, pfNativeError,
+                  szErrorMsg, cbErrorMsgMax, pcbErrorMsg)) == SQL_SUCCESS) {
+                return true;
+            } else {
+                CRONO_LOG_ERROR("...failed retcode = " << retcode << " on SQLGetDiagRec(SQL_HANDLE_DBC, hdbc, recNumber, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg)");
+            }
+        }
+        return false;
+    }
+
+	///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Connect(const char *chars) {
         size_t dsnLength = 0;
 
-        if ((szDSN) && (0 < (dsnLength = chars_t::count(szDSN)))) {
+        if ((chars) && (0 < (dsnLength = chars_t::count(chars)))) {
+            SQLCHARArray dsnArray(chars, dsnLength);
             SQLCHAR *dsnChars = 0;
-            SQLCHARArray dsnArray;
 
-            for (SQLCHAR dsnChar = 0; dsnLength; --dsnLength) {
-                dsnChar = ((SQLCHAR)(*szDSN));
-                dsnArray.append(&dsnChar, 1);
-            }
             if ((dsnChars = dsnArray.has_elements(dsnLength))) {
-                if ((this->Connect(dsnChars, dsnLength))) {
+                CharString dsn(dsnChars, dsnLength);
+
+                CRONO_LOG_DEBUG("Connect(dsnChars = \"" << dsn << "\", dsnLength)...")
+                if ((this->Connect(dsnChars, dsnLength, NULL, 0, NULL, 0))) {
                     return true;
                 }
             }
         }
         return false;
     }
-    virtual bool Connect(SQLCHAR *szDSN, SQLSMALLINT cbDSN) {
-        if ((this->Connect(szDSN, cbDSN, NULL, 0, NULL, 0))) {
-            return true;
-        }
+    virtual bool Connect
+	(const char *chars, const char* user, const char* password) {
+		if ((user) && (password)) {
+			size_t userLength = 0;
+
+			if ((user) && (0 < (userLength = chars_t::count(user)))) {
+				SQLCHARArray userArray(user, userLength);
+				SQLCHAR *userChars = 0;
+
+				if ((userChars = userArray.has_elements(userLength))) {
+					size_t passwordLength = 0;
+
+					if ((password) && (0 < (passwordLength = chars_t::count(password)))) {
+						SQLCHARArray passwordArray(password, passwordLength);
+						SQLCHAR *passwordChars = 0;
+
+						if ((passwordChars = passwordArray.has_elements(passwordLength))) {
+							size_t dsnLength = 0;
+
+							if ((chars) && (0 < (dsnLength = chars_t::count(chars)))) {
+								SQLCHARArray dsnArray(chars, dsnLength);
+								SQLCHAR *dsnChars = 0;
+
+								if ((dsnChars = dsnArray.has_elements(dsnLength))) {
+									CharString dsn(dsnChars, dsnLength);
+
+									CRONO_LOG_DEBUG("Connect(dsnChars = \"" << dsn << "\", dsnLength)...")
+									if ((this->Connect
+										(dsnChars, dsnLength, userChars, 
+										 userLength, passwordChars, passwordLength))) {
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} else {
+			if ((Connect(chars))) {
+				return true;
+			}
+		}
         return false;
     }
     virtual bool Connect
@@ -161,6 +247,9 @@ public:
                 return true;
             } else {
                 CRONO_LOG_ERROR("...failed retcode = " << retcode << " on SQLConnect(hdbc, szDSN, cbDSN, szUID, cbUID, szAuthStr, cbAuthStr)");
+				if (SQL_SUCCESS_WITH_INFO == (retcode)) {
+					return true;
+				}
             }
         }
         return false;
@@ -204,8 +293,8 @@ public:
         return 0;
     }
     virtual bool DestroyDetached(SQLHDBC hdbc) const {
-        SQLRETURN retcode = SQL_SUCCESS;
         if ((hdbc)) {
+            SQLRETURN retcode = SQL_SUCCESS;
             /*/
             SQLRETURN SQLFreeConnect
             (SQLHDBC hdbc); // Connection handle to free

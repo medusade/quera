@@ -24,7 +24,7 @@
 #include "nadir/base/chars.hpp"
 #include "nadir/base/array.hpp"
 #include "nadir/base/string.hpp"
-#include "crono/io/logger.hpp"
+#include "crono/io/Logger.hpp"
 
 namespace quera {
 
@@ -42,6 +42,10 @@ typedef nadir::wchar_string wstring_t;
 typedef nadir::char_array char_array;
 typedef nadir::tchar_array tchar_array;
 typedef nadir::wchar_array wchar_array;
+
+typedef string_t String;
+typedef tstring_t TString;
+typedef wstring_t WString;
 
 } // namespace quera
 
