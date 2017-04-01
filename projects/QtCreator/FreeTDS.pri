@@ -13,33 +13,31 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: unixODBC.pri
+#   File: FreeTDS.pri
 #
 # Author: $author$
-#   Date: 3/13/2017
+#   Date: 3/28/2017
 ########################################################################
 
 ########################################################################
-# unixODBC
-unixODBC_INCLUDEPATH += \
+# FreeTDS
+FreeTDS_INCLUDEPATH += \
 /usr/local/include \
 
-#$${HOME}/build/unixODBC/include \
+#$${HOME}/build/FreeTDS/include \
 
-unixODBC_DEFINES += \
-
-########################################################################
-unixODBC_HEADERS += \
-
-unixODBC_SOURCES += \
+FreeTDS_DEFINES += \
 
 ########################################################################
-unixODBC_LIBS += \
+FreeTDS_HEADERS += \
+
+FreeTDS_SOURCES += \
+
+########################################################################
+FreeTDS_LIBS += \
 -L/usr/local/lib \
 
-#-L$${HOME}/build/unixODBC/lib \
+#-L$${HOME}/build/FreeTDS/lib \
 
-unixODBC_LIBS += \
--lodbc \
--lodbcinst \
+FreeTDS_LIBS += \
 -lct \

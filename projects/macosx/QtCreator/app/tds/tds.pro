@@ -13,33 +13,45 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: unixODBC.pri
+#   File: tds.pro
 #
 # Author: $author$
-#   Date: 3/13/2017
+#   Date: 3/28/2017
 ########################################################################
+include(../../../../QtCreator/framework.pri)
+include(../../framework.pri)
+include(../../../../QtCreator/quera.pri)
+include(../../quera.pri)
+include(../../../../QtCreator/crono.pri)
+include(../../crono.pri)
+include(../../../../QtCreator/patrona.pri)
+include(../../patrona.pri)
+include(../../../../QtCreator/nadir.pri)
+include(../../nadir.pri)
+include(../../../../QtCreator/FreeTDS.pri)
+include(../../FreeTDS.pri)
+include(../../../../QtCreator/app/tds/tds.pri)
+
+TARGET = $${tds_TARGET}
 
 ########################################################################
-# unixODBC
-unixODBC_INCLUDEPATH += \
-/usr/local/include \
+INCLUDEPATH += \
+$${tds_INCLUDEPATH} \
+$${FreeTDS_INCLUDEPATH} \
 
-#$${HOME}/build/unixODBC/include \
-
-unixODBC_DEFINES += \
-
-########################################################################
-unixODBC_HEADERS += \
-
-unixODBC_SOURCES += \
+DEFINES += \
+$${tds_DEFINES} \
+$${FreeTDS_DEFINES} \
 
 ########################################################################
-unixODBC_LIBS += \
--L/usr/local/lib \
+HEADERS += \
+$${tds_HEADERS} \
 
-#-L$${HOME}/build/unixODBC/lib \
+SOURCES += \
+$${tds_SOURCES} \
 
-unixODBC_LIBS += \
--lodbc \
--lodbcinst \
--lct \
+########################################################################
+LIBS += \
+$${tds_LIBS} \
+$${FreeTDS_LIBS} \
+

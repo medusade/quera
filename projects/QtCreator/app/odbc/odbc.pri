@@ -34,6 +34,15 @@ $${quera_DEFINES} \
 
 ########################################################################
 odbc_HEADERS += \
+$${QUERA_SRC}/quera/db/tds/ctlib/Context.hpp \
+$${QUERA_SRC}/quera/db/tds/ctlib/CTLib.hpp \
+
+odbc_SOURCES += \
+$${QUERA_SRC}/quera/db/tds/ctlib/Context.cpp \
+$${QUERA_SRC}/quera/db/tds/ctlib/CTLib.cpp \
+
+########################################################################
+odbc_HEADERS += \
 $${QUERA_SRC}/quera/db/odbc/Query.hpp \
 $${QUERA_SRC}/quera/db/odbc/Connection.hpp \
 $${QUERA_SRC}/quera/db/odbc/Environment.hpp \
