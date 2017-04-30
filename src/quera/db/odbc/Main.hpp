@@ -23,15 +23,16 @@
 
 #include "quera/db/odbc/Query.hpp"
 #include "quera/db/odbc/MainOpt.hpp"
+#include "quera/db/OptMain.hpp"
+#include "quera/db/Main.hpp"
 #include "quera/base/Base.hpp"
-#include "crono/console/getopt/Main.hpp"
 
 namespace quera {
 namespace db {
 namespace odbc {
 
-typedef crono::console::getopt::MainImplements MainTImplements;
-typedef crono::console::getopt::Main MainTExtends;
+typedef db::OptMainTImplements MainTImplements;
+typedef db::OptMain MainTExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: MainT
 ///////////////////////////////////////////////////////////////////////
@@ -46,11 +47,7 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    MainT()
-    : m_run(0), m_queryRun(0),
-      m_sourceChars("Data"), m_userChars(0), m_passwordChars(0),
-      m_tableChars("Table"), m_selectChars("*"), m_whereChars(0),
-      m_statementChars("select * from Table"), m_statementsChars(0) {
+    MainT(): m_run(0), m_queryRun(0) {
     }
     virtual ~MainT() {
     }
@@ -58,7 +55,7 @@ public:
 protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual int Run(int argc, char** argv, char** env) {
+    virtual int QueryRun(int argc, char** argv, char** env) {
         int err = 0;
         if ((m_run)) {
             err = (this->*m_run)(argc, argv, env);
@@ -77,7 +74,7 @@ protected:
 
         driver.assign("Microsoft Access Driver (*.mdb)");
         attributes.append("CREATE_DB=./");
-        attributes.append(m_sourceChars);
+        attributes.append(this->m_sourceChars);
         attributes.append(".mdb");
         attributes.append("\0", 1);
 
@@ -107,7 +104,7 @@ protected:
                 if ((c.Create(e))) {
                     c.SetConnectOption(SQL_ACCESS_MODE, SQL_MODE_READ_WRITE);
 
-                    if ((c.Connect(m_sourceChars, m_userChars, m_passwordChars))) {
+                    if ((c.Connect(this->m_sourceChars, this->m_userChars, this->m_passwordChars))) {
                         odbc::Query& q = m_query;
 
                         if ((q.Create(c))) {
@@ -137,10 +134,10 @@ protected:
     virtual int  RunQueryColumns(int argc, char** argv, char** env) {
         int err = 0;
 
-        if ((m_tableChars)) {
+        if ((this->m_tableChars)) {
             odbc::Query& q = m_query;
 
-            if ((q.TableColumns(m_tableChars))) {
+            if ((q.TableColumns(this->m_tableChars))) {
 
                 RunBeginQueryResults(argc, argv, env);
                 RunQueryResults(argc, argv, env);
@@ -182,32 +179,32 @@ protected:
         return err;
     }
     virtual const char* FirstStatement() {
-        return m_statementChars;
+        return this->m_statementChars;
     }
     virtual const char* NextStatement() {
         size_t statementLength = 0;
 
-        if ((m_statementChars) && (0 < (statementLength = m_statement.length()))) {
+        if ((this->m_statementChars) && (0 < (statementLength = this->m_statement.length()))) {
             const char* statementsChars = 0;
             size_t statementsLength = 0;
 
-            if ((m_statementsChars) && (statementsChars = (m_statements.has_chars(statementsLength)))) {
+            if ((this->m_statementsChars) && (statementsChars = (this->m_statements.has_chars(statementsLength)))) {
                 size_t statementsTell = 0;
 
-                if ((statementsTell = (m_statementsChars-statementsChars)) < (statementsLength)) {
-                    statementsChars = m_statementsChars;
-                    m_statementsChars = 0;
-                    m_statement.clear();
+                if ((statementsTell = (this->m_statementsChars-statementsChars)) < (statementsLength)) {
+                    statementsChars = this->m_statementsChars;
+                    this->m_statementsChars = 0;
+                    this->m_statement.clear();
                     for (char c = 0; statementsTell < statementsLength; ++statementsTell, ++statementsChars) {
                         if (';' != (c = *statementsChars)) {
-                            m_statement.append(&c, 1);
+                            this->m_statement.append(&c, 1);
                             continue;
                         }
-                        m_statementsChars = ++statementsChars;
+                        this->m_statementsChars = ++statementsChars;
                         break;
                     }
-                    m_statementChars = m_statement.has_chars();
-                    return m_statementChars;
+                    this->m_statementChars = this->m_statement.has_chars();
+                    return this->m_statementChars;
                 }
             }
         }
@@ -342,121 +339,19 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual int OnDataOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_sourceChars = m_source.assign(optarg).chars())) {
-                CRONO_LOG_DEBUG("...source = \"" << m_sourceChars << "\"");
-                if (!(m_queryRun)) {
-                    m_run = &Derives::RunQuery;
-                    m_queryRun = &Derives::RunQueryExecute;
-                }
-            }
-        }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    virtual int OnUserOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_userChars = m_user.assign(optarg).has_chars())) {
-                CRONO_LOG_DEBUG("...user = \"" << m_userChars << "\"");
-            }
-        }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    virtual int OnPasswordOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_passwordChars = m_password.assign(optarg).has_chars())) {
-                CRONO_LOG_DEBUG("...password = \"" << m_passwordChars << "\"");
-            }
-        }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    virtual void OnStatementPartChanged() {
-        m_statement.assign("select ");
-        m_statement.append(m_selectChars);
-        m_statement.append(" from ");
-        m_statement.append(m_tableChars);
-        if ((m_whereChars)) {
-            m_statement.append(" where ");
-            m_statement.append(m_whereChars);
-        }
-        m_statementChars = m_statement.chars();
-        CRONO_LOG_DEBUG("...statement = \"" << m_statementChars << "\"");
+    virtual void OnLocationPartChanged() {
         if (!(m_queryRun)) {
             m_run = &Derives::RunQuery;
             m_queryRun = &Derives::RunQueryExecute;
         }
     }
     ///////////////////////////////////////////////////////////////////////
-    virtual int OnTableOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_tableChars = m_table.assign(optarg).chars())) {
-                OnStatementPartChanged();
-            }
-        }
-        return err;
-    }
     ///////////////////////////////////////////////////////////////////////
-    virtual int OnSelectOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_selectChars = m_select.assign(optarg).chars())) {
-                OnStatementPartChanged();
-            }
+    virtual void OnStatementChanged() {
+        if (!(m_queryRun)) {
+            m_run = &Derives::RunQuery;
+            m_queryRun = &Derives::RunQueryExecute;
         }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    virtual int OnWhereOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_whereChars = m_where.assign(optarg).chars())) {
-                OnStatementPartChanged();
-            }
-        }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    virtual int OnQueryOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-            if ((m_statementChars = m_statement.assign(optarg).chars())) {
-                CRONO_LOG_DEBUG("...statement = \"" << m_statementChars << "\"");
-                if (!(m_queryRun)) {
-                    m_run = &Derives::RunQuery;
-                    m_queryRun = &Derives::RunQueryExecute;
-                }
-            }
-        }
-        return err;
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -469,34 +364,24 @@ protected:
             FILE* f = 0;
             if ((f = fopen(optarg, "r"))) {
                 size_t length = 0;
-                m_statement.clear();
-                m_statements.clear();
+                this->m_statement.clear();
+                this->m_statements.clear();
                 for (char c = 0; (0 < fread(&c, 1,1, f));) {
-                    m_statements.append(&c, 1);
+                    this->m_statements.append(&c, 1);
                 }
                 fclose(f);
-                if ((m_statementsChars = (m_statementChars = m_statements.has_chars(length)))) {
-                    for (char c = 0; length; --length, ++m_statementsChars) {
-                        if (';' == (c = *(m_statementsChars))) {
-                            m_statement.assign(m_statementChars, m_statementsChars-m_statementChars);
-                            m_statementChars = m_statement.has_chars();
-                            ++m_statementsChars;
-                            CRONO_LOG_DEBUG("...statement = \"" << m_statement << "\"");
+                if ((this->m_statementsChars = (this->m_statementChars = this->m_statements.has_chars(length)))) {
+                    for (char c = 0; length; --length, ++this->m_statementsChars) {
+                        if (';' == (c = *(this->m_statementsChars))) {
+                            this->m_statement.assign(this->m_statementChars, this->m_statementsChars-this->m_statementChars);
+                            this->m_statementChars = this->m_statement.has_chars();
+                            ++this->m_statementsChars;
+                            CRONO_LOG_DEBUG("...statement = \"" << this->m_statement << "\"");
                             break;
                         }
                     }
                 }
             }
-        }
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    virtual int OnOutputOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
         }
         return err;
     }
@@ -507,12 +392,6 @@ protected:
 protected:
     typedef int (Derives::*MRun)(int argc, char** argv, char** env);
     MRun m_run, m_queryRun;
-    const char *m_sourceChars, *m_userChars, *m_passwordChars, 
-               *m_tableChars, *m_selectChars, *m_whereChars,
-               *m_statementChars, *m_statementsChars;
-    string_t m_source, m_user, m_password, 
-             m_table, m_select, m_where,
-             m_statement, m_statements;
     odbc::Environment m_environment;
     odbc::Connection m_connection;
     odbc::Query m_query;

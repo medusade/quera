@@ -13,12 +13,12 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: OptMain.cpp
 ///
 /// Author: $author$
-///   Date: 3/30/2017
+///   Date: 4/29/2017
 ///////////////////////////////////////////////////////////////////////
-#include "quera/db/tds/ctlib/Main.hpp"
+#include "quera/db/tds/ctlib/OptMain.hpp"
 
 namespace quera {
 namespace db {
@@ -26,8 +26,11 @@ namespace tds {
 namespace ctlib {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainT
+///  Class: OptMainT
 ///////////////////////////////////////////////////////////////////////
+#if defined(QUERA_DB_TDS_CTLIB_OPTMAIN_IS_THEMAIN)
+static OptMain g_theMain;
+#endif // defined(QUERA_DB_TDS_CTLIB_OPTMAIN_IS_THEMAIN)
 
 } // namespace ctlib 
 } // namespace tds 

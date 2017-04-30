@@ -53,65 +53,72 @@ public:
 protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual int Run(int argc, char** argv, char** env) {
+    virtual int QueryRun(int argc, char** argv, char** env) {
         int err = 0;
         return err;
     }
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual void OnLocationPartChanged() {
+    }
+    ///////////////////////////////////////////////////////////////////////
     virtual int OnHostOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_hostChars = m_host.assign(optarg).chars())) {
                 CRONO_LOG_DEBUG("...host = \"" << m_hostChars << "\"");
+                OnLocationPartChanged();
             }
         }
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnDataOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_sourceChars = m_source.assign(optarg).chars())) {
                 CRONO_LOG_DEBUG("...source = \"" << m_sourceChars << "\"");
+                OnLocationPartChanged();
             }
         }
         return err;
     }
+
     ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void OnCredentialPartChanged() {
+    }
     virtual int OnUserOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_userChars = m_user.assign(optarg).has_chars())) {
                 CRONO_LOG_DEBUG("...user = \"" << m_userChars << "\"");
+                OnCredentialPartChanged();
             }
         }
         return err;
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnPasswordOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_passwordChars = m_password.assign(optarg).has_chars())) {
                 CRONO_LOG_DEBUG("...password = \"" << m_passwordChars << "\"");
+                OnCredentialPartChanged();
             }
         }
         return err;
     }
+
     ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void OnStatementChanged() {
+    }
     ///////////////////////////////////////////////////////////////////////
     virtual void OnStatementPartChanged() {
         m_statement.assign("select ");
@@ -124,12 +131,11 @@ protected:
         }
         m_statementChars = m_statement.chars();
         CRONO_LOG_DEBUG("...statement = \"" << m_statementChars << "\"");
+        OnStatementChanged();
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnTableOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_tableChars = m_table.assign(optarg).chars())) {
@@ -140,9 +146,7 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnSelectOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_selectChars = m_select.assign(optarg).chars())) {
@@ -153,9 +157,7 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnWhereOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_whereChars = m_where.assign(optarg).chars())) {
@@ -166,30 +168,27 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnQueryOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             if ((m_statementChars = m_statement.assign(optarg).chars())) {
                 CRONO_LOG_DEBUG("...statement = \"" << m_statementChars << "\"");
+                OnStatementChanged();
             }
         }
         return err;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int OnInputOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
         }
         return err;
     }
 
-#include "quera/db/MainOpt.cpp"
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

@@ -13,23 +13,47 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: OptMain.hpp
 ///
 /// Author: $author$
-///   Date: 3/30/2017
+///   Date: 4/29/2017
 ///////////////////////////////////////////////////////////////////////
+#ifndef _QUERA_DB_TDS_CTLIB_OPTMAIN_HPP
+#define _QUERA_DB_TDS_CTLIB_OPTMAIN_HPP
+
 #include "quera/db/tds/ctlib/Main.hpp"
+#include "quera/db/OptMain.hpp"
 
 namespace quera {
 namespace db {
 namespace tds {
 namespace ctlib {
 
+typedef db::OptMainTImplements OptMainTImplements;
+typedef ctlib::MainT<OptMainTImplements, db::OptMain> OptMainTExtends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainT
+///  Class: OptMainT
 ///////////////////////////////////////////////////////////////////////
+template
+<class TImplements = OptMainTImplements, class TExtends = OptMainTExtends>
+class _EXPORT_CLASS OptMainT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    OptMainT() {
+    }
+    virtual ~OptMainT() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef OptMainT<> OptMain;
 
 } // namespace ctlib 
 } // namespace tds 
 } // namespace db 
 } // namespace quera 
+
+#endif // _QUERA_DB_TDS_CTLIB_OPTMAIN_HPP 

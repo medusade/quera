@@ -97,6 +97,49 @@ public:
 
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
+    virtual bool Convert
+    (CharString& to, size_t toSize, CS_DATETIME& from) {
+        CS_CHAR* valueChars = 0;
+        CS_CHARArray valueArray;
+
+        if (0 < (toSize = valueArray.set_size(toSize))) {
+            if ((valueChars = valueArray.elements())) {
+                CS_INT resultlen = 0;
+                CS_DATAFMT srcfmt, destfmt;
+
+                memset(&srcfmt, 0, sizeof(srcfmt));
+                memset(&destfmt, 0, sizeof(destfmt));
+                srcfmt.datatype = CS_DATETIME_TYPE;
+                destfmt.datatype = CS_CHAR_TYPE;
+                destfmt.maxlength = toSize;
+                if ((Convert(srcfmt, &from, destfmt, valueChars, resultlen))) {
+                    to.Assign(valueChars, resultlen);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    virtual bool Convert
+    (CS_DATAFMT& srcfmt, CS_VOID* srcdata,
+     CS_DATAFMT& destfmt, CS_VOID* destdata, CS_INT& resultlen) {
+        CS_CONTEXT* ctx = 0;
+
+        if ((ctx = this->AttachedTo()) && (srcdata) && (destdata)) {
+            CS_RETCODE retcode = CS_SUCCEED;
+
+            CRONO_LOG_DEBUG("cs_convert(ctx, &srcfmt, srcdata, &destfmt, destdata, &resultlen)...");
+            if (CS_SUCCEED == (retcode = cs_convert(ctx, &srcfmt, srcdata, &destfmt, destdata, &resultlen))) {
+                return true;
+            } else {
+                CRONO_LOG_ERROR("...failed retcode = " << retcode << " on cs_convert(ctx, &srcfmt, srcdata, &destfmt, destdata, &resultlen)");
+            }
+        }
+        return false;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual CS_CONTEXT* CreateDetached(CS_INT version) const {
         CS_RETCODE retcode = CS_SUCCEED;
         CS_CONTEXT* ctx = 0;

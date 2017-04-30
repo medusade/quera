@@ -20,13 +20,14 @@
 ///////////////////////////////////////////////////////////////////////
 #ifndef _QUERA_DB_ODBC_MAIN_HPP
 #include "quera/db/odbc/MainOpt.hpp"
+#include "quera/db/Main.hpp"
 
 namespace quera {
 namespace db {
 namespace odbc {
 
-typedef crono::console::getopt::MainImplements MainTImplements;
-typedef crono::console::getopt::Main MainTExtends;
+typedef db::MainTImplements MainTImplements;
+typedef db::Main MainTExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: MainT
 ///////////////////////////////////////////////////////////////////////
@@ -59,42 +60,6 @@ public:
             err = OnColumnsOption
             (optval, optarg, optname, optind, argc, argv, env);
             break;
-        case QUERA_DB_ODBC_MAIN_DATA_OPTVAL_C:
-            err = OnDataOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_USER_OPTVAL_C:
-            err = OnUserOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_PASSWORD_OPTVAL_C:
-            err = OnPasswordOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_TABLE_OPTVAL_C:
-            err = OnTableOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_SELECT_OPTVAL_C:
-            err = OnSelectOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_WHERE_OPTVAL_C:
-            err = OnWhereOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_QUERY_OPTVAL_C:
-            err = OnQueryOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_INPUT_OPTVAL_C:
-            err = OnInputOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case QUERA_DB_ODBC_MAIN_OUTPUT_OPTVAL_C:
-            err = OnOutputOption
-            (optval, optarg, optname, optind, argc, argv, env);
-            break;
         default:
             err = Extends::OnOption
             (optval, optarg, optname, optind, argc, argv, env);
@@ -110,41 +75,13 @@ public:
             optarg = QUERA_DB_ODBC_MAIN_CREATE_OPTARG;
             chars = QUERA_DB_ODBC_MAIN_CREATE_OPTUSE;
             break;
-        case QUERA_DB_ODBC_MAIN_DATA_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_DATA_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_DATA_OPTUSE;
+        case QUERA_DB_ODBC_MAIN_EXECUTE_OPTVAL_C:
+            optarg = QUERA_DB_ODBC_MAIN_EXECUTE_OPTARG;
+            chars = QUERA_DB_ODBC_MAIN_EXECUTE_OPTUSE;
             break;
-        case QUERA_DB_ODBC_MAIN_USER_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_USER_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_USER_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_PASSWORD_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_PASSWORD_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_PASSWORD_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_TABLE_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_TABLE_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_TABLE_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_SELECT_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_SELECT_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_SELECT_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_WHERE_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_WHERE_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_WHERE_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_QUERY_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_QUERY_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_QUERY_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_INPUT_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_INPUT_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_INPUT_OPTUSE;
-            break;
-        case QUERA_DB_ODBC_MAIN_OUTPUT_OPTVAL_C:
-            optarg = QUERA_DB_ODBC_MAIN_OUTPUT_OPTARG;
-            chars = QUERA_DB_ODBC_MAIN_OUTPUT_OPTUSE;
+        case QUERA_DB_ODBC_MAIN_COLUMNS_OPTVAL_C:
+            optarg = QUERA_DB_ODBC_MAIN_COLUMNS_OPTARG;
+            chars = QUERA_DB_ODBC_MAIN_COLUMNS_OPTUSE;
             break;
         default:
             chars = Extends::OptionUsage(optarg, longopt);

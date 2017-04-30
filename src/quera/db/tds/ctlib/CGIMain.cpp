@@ -13,12 +13,12 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: CGIMain.cpp
 ///
 /// Author: $author$
-///   Date: 3/30/2017
+///   Date: 4/29/2017
 ///////////////////////////////////////////////////////////////////////
-#include "quera/db/tds/ctlib/Main.hpp"
+#include "quera/db/tds/ctlib/CGIMain.hpp"
 
 namespace quera {
 namespace db {
@@ -26,8 +26,9 @@ namespace tds {
 namespace ctlib {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainT
+///  Class: CGIMainT
 ///////////////////////////////////////////////////////////////////////
+static CGIMain g_theMain;
 
 } // namespace ctlib 
 } // namespace tds 

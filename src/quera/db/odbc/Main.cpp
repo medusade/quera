@@ -19,7 +19,6 @@
 ///   Date: 3/13/2017
 ///////////////////////////////////////////////////////////////////////
 #include "quera/db/odbc/Main.hpp"
-#include "crono/console/Main_main.cpp"
 
 namespace quera {
 namespace db {

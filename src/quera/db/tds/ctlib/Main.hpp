@@ -55,7 +55,7 @@ public:
 protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual int Run(int argc, char** argv, char** env) {
+    virtual int QueryRun(int argc, char** argv, char** env) {
         int err = 0;
         tds::ctlib::Context& ctx = m_ctx;
 
@@ -160,9 +160,12 @@ protected:
     virtual int ResultColRun
     (int row, int col, CS_DATAFMT& format, int argc, char** argv, char** env) {
         int err = 0;
+        tds::ctlib::Context& ctx = m_ctx;
         tds::ctlib::Command& cmd = m_cmd;
         CS_INT type = format.datatype;
         CS_INT intValue = 0;
+        CS_INT floatValue = 0;
+        CS_DATETIME dateTimeValue;
         CharString stringValue;
 
         switch(type) {
@@ -176,6 +179,20 @@ protected:
             CRONO_LOG_DEBUG("...CS_INT_TYPE = " << type);
             if ((cmd.GetData(intValue, col))) {
                 ResultColRun(row, col, stringValue.assign_int(intValue).chars(), argc, argv, env);
+            }
+            break;
+        case CS_FLOAT_TYPE:
+            CRONO_LOG_DEBUG("...CS_FLOAT_TYPE = " << type);
+            if ((cmd.GetData(floatValue, col))) {
+                ResultColRun(row, col, stringValue.assign_float(intValue).chars(), argc, argv, env);
+            }
+            break;
+        case CS_DATETIME_TYPE:
+            CRONO_LOG_DEBUG("...CS_DATETIME_TYPE = " << type);
+            if ((cmd.GetData(dateTimeValue, col))) {
+                if ((ctx.Convert(stringValue, 128, dateTimeValue))) {
+                    ResultColRun(row, col, stringValue.chars(), argc, argv, env);
+                }
             }
             break;
         default:

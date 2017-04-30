@@ -13,23 +13,16 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: Main_main.cpp
 ///
 /// Author: $author$
-///   Date: 3/30/2017
+///   Date: 4/29/2017
 ///////////////////////////////////////////////////////////////////////
-#include "quera/db/tds/ctlib/Main.hpp"
+#include "quera/console/Main_main.hpp"
+#include "crono/console/Main_main.cpp"
 
 namespace quera {
-namespace db {
-namespace tds {
-namespace ctlib {
+namespace console {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: MainT
-///////////////////////////////////////////////////////////////////////
-
-} // namespace ctlib 
-} // namespace tds 
-} // namespace db 
+} // namespace console 
 } // namespace quera 

@@ -205,6 +205,20 @@ public:
         }
         return false;
     }
+    virtual bool GetData(CS_FLOAT& value, CS_INT item) {
+        CS_INT outlen = 0;
+        if ((GetData(true, item, &value, sizeof(value), outlen))) {
+            return true;
+        }
+        return false;
+    }
+    virtual bool GetData(CS_DATETIME& value, CS_INT item) {
+        CS_INT outlen = 0;
+        if ((GetData(true, item, &value, sizeof(value), outlen))) {
+            return true;
+        }
+        return false;
+    }
     virtual bool GetData
     (bool firstItem, CS_INT item, CS_VOID* buffer, CS_INT buflen, CS_INT& outlen) {
         CS_COMMAND* cmd = 0;
@@ -218,7 +232,11 @@ public:
                 if ((CS_END_ITEM == (retcode)) && (firstItem)) {
                     return true;
                 } else {
-                CRONO_LOG_ERROR("...failed " << retcode << " on ct_get_data(con, item, buffer, buflen, &outlen = " << outlen << ")");
+                    if ((CS_END_DATA == (retcode)) && (firstItem)) {
+                        return true;
+                    } else {
+                        CRONO_LOG_ERROR("...failed " << retcode << " on ct_get_data(con, item, buffer, buflen, &outlen = " << outlen << ")");
+                    }
                 }
             }
         }
