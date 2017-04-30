@@ -13,53 +13,35 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: tds.pri
+#   File: tdscgi.pri
 #
 # Author: $author$
-#   Date: 3/28/2017
+#   Date: 4/29/2017
 ########################################################################
 
-tds_TARGET = quera-tds
+tdscgi_TARGET = quera-tds-cgi
 
 ########################################################################
-tds_INCLUDEPATH += \
+tdscgi_INCLUDEPATH += \
 $${quera_INCLUDEPATH} \
+$${porta_INCLUDEPATH} \
 $${crono_INCLUDEPATH} \
 $${patrona_INCLUDEPATH} \
 $${nadir_INCLUDEPATH} \
 
-tds_DEFINES += \
+tdscgi_DEFINES += \
 $${framework_DEFINES} \
 $${quera_DEFINES} \
-QUERA_DB_TDS_CTLIB_OPTMAIN_IS_THEMAIN \
 
 ########################################################################
-tds_HEADERS += \
-$${QUERA_SRC}/quera/db/tds/ctlib/Command.hpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Connection.hpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Context.hpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/CTLib.hpp \
-
-tds_SOURCES += \
-$${QUERA_SRC}/quera/db/tds/ctlib/Command.cpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Connection.cpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Context.cpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/CTLib.cpp \
-
-########################################################################
-tds_HEADERS += \
-$${QUERA_SRC}/quera/db/tds/ctlib/OptMain.hpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Main.hpp \
-$${QUERA_SRC}/quera/db/Main.hpp \
-$${QUERA_SRC}/quera/db/OptMain.hpp \
-$${QUERA_SRC}/quera/db/MainOpt.hpp \
+tdscgi_HEADERS += \
+$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.hpp \
 $${QUERA_SRC}/quera/console/Main_main.hpp \
 
-tds_SOURCES += \
-$${QUERA_SRC}/quera/db/tds/ctlib/OptMain.cpp \
-$${QUERA_SRC}/quera/db/tds/ctlib/Main.cpp \
+tdscgi_SOURCES += \
+$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.cpp \
 $${QUERA_SRC}/quera/console/Main_main.cpp \
 
 ########################################################################
-tds_LIBS += \
+tdscgi_LIBS += \
 $${nadir_LIBS} \

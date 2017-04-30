@@ -13,47 +13,40 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: odbc.pri
+#   File: tdscgi.pro
 #
 # Author: $author$
-#   Date: 3/12/2017
+#   Date: 4/29/2017
 ########################################################################
+include(../../../../QtCreator/framework.pri)
+include(../../framework.pri)
+include(../../../../QtCreator/quera.pri)
+include(../../quera.pri)
+include(../../../../QtCreator/crono.pri)
+include(../../crono.pri)
+include(../../../../QtCreator/patrona.pri)
+include(../../patrona.pri)
+include(../../../../QtCreator/nadir.pri)
+include(../../nadir.pri)
+include(../../../../QtCreator/app/tdscgi/tdscgi.pri)
 
-odbc_TARGET = quera-odbc
-
-########################################################################
-odbc_INCLUDEPATH += \
-$${quera_INCLUDEPATH} \
-$${crono_INCLUDEPATH} \
-$${patrona_INCLUDEPATH} \
-$${nadir_INCLUDEPATH} \
-
-odbc_DEFINES += \
-$${framework_DEFINES} \
-$${quera_DEFINES} \
-
-########################################################################
-odbc_HEADERS += \
-$${QUERA_SRC}/quera/db/odbc/Main.hpp \
-$${QUERA_SRC}/quera/db/odbc/MainOpt.hpp \
-$${QUERA_SRC}/quera/db/Main.hpp \
-$${QUERA_SRC}/quera/db/MainOpt.hpp \
-$${QUERA_SRC}/quera/db/odbc/Query.hpp \
-$${QUERA_SRC}/quera/db/odbc/Connection.hpp \
-$${QUERA_SRC}/quera/db/odbc/Environment.hpp \
-$${QUERA_SRC}/quera/db/odbc/Object.hpp \
-$${QUERA_SRC}/quera/db/odbc/ODBC.hpp \
-$${QUERA_SRC}/quera/console/Main_main.hpp \
-
-odbc_SOURCES += \
-$${QUERA_SRC}/quera/db/odbc/Main.cpp \
-$${QUERA_SRC}/quera/db/odbc/Query.cpp \
-$${QUERA_SRC}/quera/db/odbc/Connection.cpp \
-$${QUERA_SRC}/quera/db/odbc/Environment.cpp \
-$${QUERA_SRC}/quera/db/odbc/Object.cpp \
-$${QUERA_SRC}/quera/db/odbc/ODBC.cpp \
-$${QUERA_SRC}/quera/console/Main_main.cpp \
+TARGET = $${tdscgi_TARGET}
 
 ########################################################################
-odbc_LIBS += \
-$${nadir_LIBS} \
+INCLUDEPATH += \
+$${tdscgi_INCLUDEPATH} \
+
+DEFINES += \
+$${tdscgi_DEFINES} \
+
+########################################################################
+HEADERS += \
+$${tdscgi_HEADERS} \
+
+SOURCES += \
+$${tdscgi_SOURCES} \
+
+########################################################################
+LIBS += \
+$${tdscgi_LIBS} \
+
