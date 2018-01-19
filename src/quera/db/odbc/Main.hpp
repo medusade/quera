@@ -22,7 +22,6 @@
 #define _QUERA_DB_ODBC_MAIN_HPP
 
 #include "quera/db/odbc/Query.hpp"
-#include "quera/db/odbc/MainOpt.hpp"
 #include "quera/db/OptMain.hpp"
 #include "quera/db/Main.hpp"
 #include "quera/base/Base.hpp"
@@ -64,6 +63,9 @@ protected:
         }
         return err;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     virtual int RunCreate(int argc, char** argv, char** env) {
         int err = 0;
         HWND hwndParent = NULL;
@@ -309,9 +311,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int OnCreateOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         m_run = &Derives::RunCreate;
         m_queryRun = 0;
@@ -319,9 +319,7 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnExecuteOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         m_run = &Derives::RunQuery;
         m_queryRun = &Derives::RunQueryExecute;
@@ -329,9 +327,7 @@ protected:
     }
     ///////////////////////////////////////////////////////////////////////
     virtual int OnColumnsOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         m_run = &Derives::RunQuery;
         m_queryRun = &Derives::RunQueryColumns;
@@ -356,9 +352,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual int OnInputOption
-    (int optval, const char_t* optarg,
-     const char_t* optname, int optind,
-     int argc, char_t**argv, char_t**env) {
+    (const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
             FILE* f = 0;
@@ -386,7 +380,6 @@ protected:
         return err;
     }
 
-#include "quera/db/odbc/MainOpt.cpp"
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:

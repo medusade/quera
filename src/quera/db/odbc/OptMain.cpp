@@ -13,20 +13,23 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: OptMain.cpp
 ///
 /// Author: $author$
-///   Date: 3/13/2017
+///   Date: 4/30/2017
 ///////////////////////////////////////////////////////////////////////
-#include "quera/db/odbc/Main.hpp"
+#include "quera/db/odbc/OptMain.hpp"
 
 namespace quera {
 namespace db {
 namespace odbc {
 
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainT
+///  Class: OptMainT
 ///////////////////////////////////////////////////////////////////////
+#if defined(QUERA_DB_ODBC_OPTMAIN_IS_THEMAIN)
+static OptMain g_theMain;
+#endif // defined(QUERA_DB_ODBC_OPTMAIN_IS_THEMAIN)
 
 } // namespace odbc 
 } // namespace db 

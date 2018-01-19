@@ -13,21 +13,19 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.cpp
+///   File: CGIMain.cpp
 ///
 /// Author: $author$
-///   Date: 3/13/2017
+///   Date: 4/30/2017
 ///////////////////////////////////////////////////////////////////////
-#include "quera/db/odbc/Main.hpp"
+#include "quera/db/odbc/CGIMain.hpp"
 
 namespace quera {
 namespace db {
 namespace odbc {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: MainT
-///////////////////////////////////////////////////////////////////////
+static CGIMain g_theMain;
 
-} // namespace odbc 
+} // namespace odbc
 } // namespace db 
 } // namespace quera 
