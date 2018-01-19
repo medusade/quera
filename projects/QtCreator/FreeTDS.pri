@@ -21,10 +21,11 @@
 
 ########################################################################
 # FreeTDS
-FreeTDS_INCLUDEPATH += \
+_FreeTDS_INCLUDEPATH += \
 /usr/local/include \
 
-#$${HOME}/build/FreeTDS/include \
+FreeTDS_INCLUDEPATH += \
+$${BUILD_HOME}/build/FreeTDS/include \
 
 FreeTDS_DEFINES += \
 
@@ -34,10 +35,15 @@ FreeTDS_HEADERS += \
 FreeTDS_SOURCES += \
 
 ########################################################################
-FreeTDS_LIBS += \
+_FreeTDS_LIBS += \
 -L/usr/local/lib \
-
-#-L$${HOME}/build/FreeTDS/lib \
+-lct \
 
 FreeTDS_LIBS += \
+-L$${BUILD_HOME_BLD}/build/FreeTDS/lib \
 -lct \
+
+FreeTDS_LIBS += \
+-lssl \
+-lcrypto \
+-liconv \

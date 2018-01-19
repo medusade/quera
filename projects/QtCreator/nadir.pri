@@ -27,11 +27,18 @@ NADIR_SRC = $${NADIR_PRJ}/src
 NADIR_BLD = ../$${NADIR_PKG}/build/$${FRAMEWORK_OS}/QtCreator/$${FRAMEWORK_CONFIG}
 NADIR_LIB = $${NADIR_BLD}/lib
 
-nadir_INCLUDEPATH += \
+_nadir_INCLUDEPATH += \
 $${NADIR_SRC} \
+
+nadir_INCLUDEPATH += \
+$${BUILD_HOME}/nadir/nadir-1.1.1/src \
 
 nadir_DEFINES += \
 
-nadir_LIBS += \
+_nadir_LIBS += \
 -L$${NADIR_LIB}/libnadir \
+-lnadir \
+
+nadir_LIBS += \
+-L$${BUILD_HOME_BLD}/build/nadir/lib \
 -lnadir \

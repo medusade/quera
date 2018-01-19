@@ -13,36 +13,40 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: tdscgi.pri
+#   File: odbccgi.pri
 #
 # Author: $author$
-#   Date: 4/29/2017
+#   Date: 4/30/2017
 ########################################################################
 
-tdscgi_TARGET = quera-tds-cgi
+odbccgi_TARGET = quera-odbc-cgi
 
 ########################################################################
-tdscgi_INCLUDEPATH += \
+odbccgi_INCLUDEPATH += \
 $${quera_INCLUDEPATH} \
 $${porta_INCLUDEPATH} \
 $${crono_INCLUDEPATH} \
 $${patrona_INCLUDEPATH} \
 $${nadir_INCLUDEPATH} \
+$${unixODBC_INCLUDEPATH} \
 
-tdscgi_DEFINES += \
+odbccgi_DEFINES += \
 $${framework_DEFINES} \
 $${quera_DEFINES} \
+$${unixODBC_DEFINES} \
 
 ########################################################################
-tdscgi_HEADERS += \
-$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.hpp \
-$${QUERA_SRC}/quera/db/CGIMain.hpp \
+odbccgi_HEADERS += \
+$${QUERA_SRC}/quera/db/odbc/CGIMain.hpp \
 $${QUERA_SRC}/quera/console/Main_main.hpp \
 
-tdscgi_SOURCES += \
-$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.cpp \
+odbccgi_SOURCES += \
+$${QUERA_SRC}/quera/db/odbc/CGIMain.cpp \
 $${QUERA_SRC}/quera/console/Main_main.cpp \
 
 ########################################################################
-tdscgi_LIBS += \
+odbccgi_LIBS += \
 $${nadir_LIBS} \
+$${unixODBC_LIBS} \
+
+

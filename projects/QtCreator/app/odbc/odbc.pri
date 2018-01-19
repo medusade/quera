@@ -31,9 +31,11 @@ $${nadir_INCLUDEPATH} \
 odbc_DEFINES += \
 $${framework_DEFINES} \
 $${quera_DEFINES} \
+QUERA_DB_ODBC_OPTMAIN_IS_THEMAIN \
 
 ########################################################################
 odbc_HEADERS += \
+$${QUERA_SRC}/quera/db/odbc/OptMain.hpp \
 $${QUERA_SRC}/quera/db/odbc/Main.hpp \
 $${QUERA_SRC}/quera/db/odbc/MainOpt.hpp \
 $${QUERA_SRC}/quera/db/Main.hpp \
@@ -46,6 +48,7 @@ $${QUERA_SRC}/quera/db/odbc/ODBC.hpp \
 $${QUERA_SRC}/quera/console/Main_main.hpp \
 
 odbc_SOURCES += \
+$${QUERA_SRC}/quera/db/odbc/OptMain.cpp \
 $${QUERA_SRC}/quera/db/odbc/Main.cpp \
 $${QUERA_SRC}/quera/db/odbc/Query.cpp \
 $${QUERA_SRC}/quera/db/odbc/Connection.cpp \

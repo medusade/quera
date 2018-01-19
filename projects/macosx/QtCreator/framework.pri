@@ -20,5 +20,12 @@
 ########################################################################
 
 FRAMEWORK_OS = macosx
-HOME = /Users/jboyd
 
+HOME = ${HOME}
+#HOME = /Users/jboyd
+
+#BUILD_HOME = $${HOME}
+BUILD_HOME = $${FRAMEWORK_THIRDPARTY}
+
+#BUILD_HOME_BLD = $${BUILD_HOME}
+BUILD_HOME_BLD = $${FRAMEWORK_THIRDPARTY_BLD}

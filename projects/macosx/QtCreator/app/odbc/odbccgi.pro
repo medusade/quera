@@ -13,36 +13,44 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: tdscgi.pri
+#   File: odbccgi.pro
 #
 # Author: $author$
-#   Date: 4/29/2017
+#   Date: 4/30/2017
 ########################################################################
+include(../../../../QtCreator/framework.pri)
+include(../../framework.pri)
+include(../../../../QtCreator/quera.pri)
+include(../../quera.pri)
+include(../../../../QtCreator/porta.pri)
+include(../../porta.pri)
+include(../../../../QtCreator/crono.pri)
+include(../../crono.pri)
+include(../../../../QtCreator/patrona.pri)
+include(../../patrona.pri)
+include(../../../../QtCreator/nadir.pri)
+include(../../nadir.pri)
+include(../../../../QtCreator/unixODBC.pri)
+include(../../unixODBC.pri)
+include(../../../../QtCreator/app/odbc/odbccgi.pri)
 
-tdscgi_TARGET = quera-tds-cgi
-
-########################################################################
-tdscgi_INCLUDEPATH += \
-$${quera_INCLUDEPATH} \
-$${porta_INCLUDEPATH} \
-$${crono_INCLUDEPATH} \
-$${patrona_INCLUDEPATH} \
-$${nadir_INCLUDEPATH} \
-
-tdscgi_DEFINES += \
-$${framework_DEFINES} \
-$${quera_DEFINES} \
-
-########################################################################
-tdscgi_HEADERS += \
-$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.hpp \
-$${QUERA_SRC}/quera/db/CGIMain.hpp \
-$${QUERA_SRC}/quera/console/Main_main.hpp \
-
-tdscgi_SOURCES += \
-$${QUERA_SRC}/quera/db/tds/ctlib/CGIMain.cpp \
-$${QUERA_SRC}/quera/console/Main_main.cpp \
+TARGET = $${odbccgi_TARGET}
 
 ########################################################################
-tdscgi_LIBS += \
-$${nadir_LIBS} \
+INCLUDEPATH += \
+$${odbccgi_INCLUDEPATH} \
+
+DEFINES += \
+$${odbccgi_DEFINES} \
+
+########################################################################
+HEADERS += \
+$${odbccgi_HEADERS} \
+
+SOURCES += \
+$${odbccgi_SOURCES} \
+
+########################################################################
+LIBS += \
+$${odbccgi_LIBS} \
+

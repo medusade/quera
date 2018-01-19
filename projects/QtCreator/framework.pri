@@ -26,6 +26,9 @@ FRAMEWORK_BIN = $${FRAMEWORK_BLD}/bin
 FRAMEWORK_LIB = $${FRAMEWORK_BLD}/lib
 FRAMEWORK_SRC = $${FRAMEWORK_PRJ}/src
 
+FRAMEWORK_THIRDPARTY = $${FRAMEWORK_PRO_DIR}$${FRAMEWORK_PKG}/thirdparty
+FRAMEWORK_THIRDPARTY_BLD = $${FRAMEWORK_PRO_DIR}$${FRAMEWORK_PKG}/../thirdparty
+
 ########################################################################
 CONFIG(debug, debug|release) {
 FRAMEWORK_CONFIG = Debug

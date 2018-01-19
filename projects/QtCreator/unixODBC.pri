@@ -21,10 +21,11 @@
 
 ########################################################################
 # unixODBC
-unixODBC_INCLUDEPATH += \
+_unixODBC_INCLUDEPATH += \
 /usr/local/include \
 
-#$${HOME}/build/unixODBC/include \
+unixODBC_INCLUDEPATH += \
+$${BUILD_HOME}/build/unixODBC/include \
 
 unixODBC_DEFINES += \
 
@@ -34,12 +35,21 @@ unixODBC_HEADERS += \
 unixODBC_SOURCES += \
 
 ########################################################################
-unixODBC_LIBS += \
+_unixODBC_LIBS += \
 -L/usr/local/lib \
-
-#-L$${HOME}/build/unixODBC/lib \
-
-unixODBC_LIBS += \
 -lodbc \
 -lodbcinst \
 -lct \
+
+unixODBC_LIBS += \
+-L$${BUILD_HOME_BLD}/build/unixODBC/lib \
+-L$${BUILD_HOME_BLD}/build/FreeTDS/lib \
+-lodbc \
+-lodbcinst \
+-lct \
+-L$${BUILD_HOME_BLD}/build/libiconv/lib \
+-liconv \
+
+_unixODBC_LIBS += \
+-L$${BUILD_HOME_BLD}/build/libiconv/lib \
+-liconv \
