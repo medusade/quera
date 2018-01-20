@@ -54,4 +54,3 @@ $${tds_SOURCES} \
 LIBS += \
 $${tds_LIBS} \
 $${FreeTDS_LIBS} \
-

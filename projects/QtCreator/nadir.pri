@@ -13,7 +13,7 @@
 # or otherwise) arising in any way out of the use of this software, 
 # even if advised of the possibility of such damage.
 #
-#   File: stara.pri
+#   File: nadir.pri
 #
 # Author: $author$
 #   Date: 3/12/2017
@@ -21,6 +21,14 @@
 
 ########################################################################
 # nadir
+NADIR_VERSION_MAJOR = 0
+NADIR_VERSION_MINOR = 0
+NADIR_VERSION_RELEASE = 0
+NADIR_VERSION = $${NADIR_VERSION_MAJOR}.$${NADIR_VERSION_MINOR}.$${NADIR_VERSION_RELEASE}
+NADIR_NAME = nadir
+NADIR_GROUP = $${NADIR_NAME}
+NADIR_DIR = $${NADIR_GROUP}/$${NADIR_NAME}-$${NADIR_VERSION}
+
 NADIR_PKG = $${FRAMEWORK_PKG}/../nadir
 NADIR_PRJ = $${FRAMEWORK_PRO_DIR}$${NADIR_PKG}
 NADIR_SRC = $${NADIR_PRJ}/src
@@ -31,7 +39,7 @@ _nadir_INCLUDEPATH += \
 $${NADIR_SRC} \
 
 nadir_INCLUDEPATH += \
-$${BUILD_HOME}/nadir/nadir-1.1.1/src \
+$${BUILD_HOME}/$${NADIR_DIR}/src \
 
 nadir_DEFINES += \
 
